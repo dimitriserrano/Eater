@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section>
+    <h1>Connexion réussie</h1>
+    <a href="{{ path('restaurant', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Continuer</a>
+</section>
+
+{% endblock %}

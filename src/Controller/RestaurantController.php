@@ -8,6 +8,7 @@ use App\Form\ProductType;
 use App\Form\RestaurantType;
 use App\Repository\ProductRepository;
 use App\Repository\RestaurantRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,12 +93,23 @@ class RestaurantController extends AbstractController
 
     /**
      * @Route("/restaurant/{id}/delete/{products}", name="product_delete")
-     * * @ParamConverter("product", options={"id" = "products"})
+     * @ParamConverter("product", options={"id" = "products"})
      */
-    public function product_delete(Restaurant $restaurant, Product $product): Response
+    public function product_delete(Restaurant $restaurant, Product $product, Request $request): Response
     {
         $this->getDoctrine()->getManager()->remove($product);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('restaurant', ['id' => $restaurant->getId()]);
+    }
+
+    /**
+     * @Route("/restaurant", name="restaurant_redirection")
+     */
+    public function redirection(UserRepository $userRepository): Response
+    {
+        $user = $userRepository->findBy();
+        return $this->render('restaurant/redir.html.twig', [
+            'users' => $user,
+        ]);
     }
 }

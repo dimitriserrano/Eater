@@ -7,6 +7,7 @@ use App\Entity\Restaurant;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -19,17 +20,23 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$firstname, $lastname, $email, $password, $phone, $address, $city]) {
+        foreach ($this->getUserData() as [$firstname, $lastname, $email, $password, $phone, $address, $city, $roles]) {
             $user = new User();
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
-            $user->setPassword($password);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
             $user->setEmail($email);
             $user->setPhone($phone);
             $user->setAddress($address);
             $user->setCity($city);
+            $user->setRoles($roles);
             $manager->persist($user);
             $this->addReference($lastname, $user);
         }
@@ -73,19 +80,10 @@ class AppFixtures extends Fixture
     private function getUserData(): array
     {
         return [
-            ['Hugo', 'LIEGEARD', 'hugo@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Naël', 'FAWAL', 'nawel@livretoo.fr', 'livretoo', '0783 45 67 67', '88 Parc de la Paix', 'Gonesse'],
-            ['Maxime', 'DELAYER', 'maxime@livretoo.fr', 'livretoo', '0783 45 67 67', '88 Parc de la Paix', 'Gonesse'],
-            ['Bruno', 'COSTE', 'bruno.coste@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Caroline', 'CHAPEAU', 'caroline.chapeau@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Eric', 'VALETTE', 'eric.valette@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Iulian', 'AMAREEI', 'iulian.amareei@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Esther', 'VALENTIN', 'esther.valentin@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Charlène', 'BENKE', 'charlene.benke@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Alexia', 'JOACHIM', 'alexia.joachim@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Sebastien', 'VERGER', 'sebastien.verger@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Florence', 'GARABEDIAN', 'florence.garabedian@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
-            ['Guillaume', 'DEROGUERRE', 'guillaume.deroguerre@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse'],
+            ['Hugo', 'LIEGEARD', 'hugo@livretoo.fr', 'livretoo', '0783 45 67 67', '20 Rue de Paris', 'Gonesse', ['ROLE_RESTAURATEUR']],
+            ['Naël', 'FAWAL', 'nawel@livretoo.fr', 'livretoo', '0783 45 67 67', '88 Parc de la Paix', 'Gonesse', ['ROLE_RESTAURATEUR']],
+            ['Maxime', 'DELAYER', 'maxime@livretoo.fr', 'livretoo', '0783 45 67 67', '88 Parc de la Paix', 'Gonesse', ['ROLE_RESTAURATEUR']],
+            ['Antoine', 'MACHEDA', 'antoine@livretoo.fr', 'livretoo', '0783 45 67 67', 'Bellecour', 'Lyon', ['ROLE_USER']],
         ];
     }
 

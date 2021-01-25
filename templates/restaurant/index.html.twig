@@ -3,22 +3,20 @@
 {% block body %}
 
 <section>
-    <h1>{{ restaurants.name }}</h1>
-    <p>{{ restaurants.address}}, {{ restaurants.city}}</p>
-    <a href="{{ path('restaurant_edit', {'id': restaurants.id}) }}" class="btn btn-primary">Editer</a>
-    {% for product in products %}
+    <h1>{{ app.user.restaurants.name }}</h1>
+    <p>{{ app.user.restaurants.address}}, {{ app.user.restaurants.city}}</p>
+    <a href="{{ path('restaurant_edit', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Editer</a>
+    {% for product in app.user.restaurants.products %}
         <div class="card border-secondary mb-3" style="max-width: 20rem;">
             <div class="card-body">
                 <h4 class="card-title">{{ product.name }}</h4>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{{ path('product_edit', {'id': restaurants.id, 'products': product.id}) }}" class="card-link">Editer</a>
-                <form method="post" action={{ path('product_delete', {'id': restaurants.id, 'products': product.id}) }}
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn btn-danger">Supprimer</button>
+                <a href="{{ path('product_edit', {'id': app.user.restaurants.id, 'products': product.id}) }}" class="card-link">Editer</a>
+                <a href="{{ path('product_delete', {'id': app.user.restaurants.id, 'products': product.id}) }}" class="card-link">Supprimer</a>
             </div>
         </div>
     {% endfor %}
-    <a href="{{ path('product_new', {'id': restaurants.id}) }}" class="btn btn-primary">Ajouter un nouveau produit</a>
+    <a href="{{ path('product_new', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Ajouter un nouveau produit</a>
 </section>
 
 {% endblock %}

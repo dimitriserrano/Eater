@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<a href="{{ path('restaurant', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Mon restaurant</a>
+<form class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="inputPassword2" class="sr-only">Password</label>
+    <input type="password" class="form-control" id="inputPassword2" placeholder="Rechercher">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+</form>
+
+<section>
+  {% for restaurant in restaurants %}
+    <h2>{{ restaurant.name }}</h2>
+    <a href="{{ path('product_show', {'id': restaurant.id}) }}" class="btn btn-primary">Voir plus</a>
+  {% endfor %}
+</section>
+
+{% endblock %}

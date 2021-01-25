@@ -45,14 +45,14 @@ class Restaurant
     private $orders;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     */
-    private $users;
-
-    /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="restaurants")
      */
     private $products;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="restaurants", cascade={"persist", "remove"})
+     */
+    private $users;
 
     public function __construct()
     {
@@ -143,18 +143,6 @@ class Restaurant
         return $this;
     }
 
-    public function getUsers(): ?User
-    {
-        return $this->users;
-    }
-
-    public function setUsers(?User $users): self
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Product[]
      */
@@ -188,5 +176,17 @@ class Restaurant
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): self
+    {
+        $this->users = $users;
+
+        return $this;
     }
 }

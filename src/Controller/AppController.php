@@ -44,4 +44,15 @@ class AppController extends AbstractController
             'restaurants' => $restaurant,
         ]);
     }
+
+    /**
+     * @Route("/restaurant/home", name="home_restaurant")
+     */
+    public function home_restaurant(RestaurantRepository $restaurantRepository): Response
+    {
+        $restaurants = $restaurantRepository->findAll();
+        return $this->render('app/home.restaurant.html.twig', [
+            'restaurants' => $restaurants,
+        ]);
+    }
 }

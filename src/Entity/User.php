@@ -67,6 +67,11 @@ class User implements UserInterface
      */
     private $orders;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Restaurant::class, mappedBy="users", cascade={"persist", "remove"})
+     */
+    private $restaurants;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -236,6 +241,28 @@ class User implements UserInterface
                 $order->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRestaurants(): ?Restaurant
+    {
+        return $this->restaurants;
+    }
+
+    public function setRestaurants(?Restaurant $restaurants): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($restaurants === null && $this->restaurants !== null) {
+            $this->restaurants->setUsers(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($restaurants !== null && $restaurants->getUsers() !== $this) {
+            $restaurants->setUsers($this);
+        }
+
+        $this->restaurants = $restaurants;
 
         return $this;
     }
