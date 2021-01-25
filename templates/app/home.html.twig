@@ -2,11 +2,26 @@
 
 {% block body %}
 
-<section>
-  {% for restaurant in restaurants %}
-    <h2>{{ restaurant.name }}</h2>
-    <a href="{{ path('product_show', {'id': restaurant.id}) }}" class="btn btn-primary">Voir plus</a>
-  {% endfor %}
+<div class="jumbotron text-center">
+  <h1>Tous les resto</h1>
+</div>
+
+
+<div class="container">
+  <h2>Restaurants a la une</h2>
+  <div class="row flex">
+    {% for restaurant in restaurants %}
+      <div class="col-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="{{ path('product_show', {'id': restaurant.id}) }}" class="btn btn-primary">{{ restaurant.name }}</a>
+            <h5>
+            <p class="card-text"> {{ restaurant.city }} </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
 </section>
 
 {% endblock %}
