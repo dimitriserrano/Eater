@@ -1,6 +1,6 @@
 # Eater
 
-Installation : 
+Installation :
 
 Installer les dependances avec Composer : composer install
 
