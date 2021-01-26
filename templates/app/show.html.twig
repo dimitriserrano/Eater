@@ -15,7 +15,7 @@
                         <img class="fit-picture" src={{ product.picture }} style="max-width: 100%;">
                         <p class="card-text">{{ product.description }}</p>
                         <h5 class="text-center text-primary d-inline-flex mr-5" style="font-size: 2rem">{{ product.price }}€</h5>
-                        <a href="#" class="card-link">Ajouter au panier</a>
+                        <a href="{{ path('panier_add', {'id': product.id, 'restaurants': restaurants.id}) }}" class="card-link">Ajouter au panier</a>
                     </div>
                 </div>
             </div>

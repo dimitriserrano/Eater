@@ -7,8 +7,12 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
+use App\Service\Cart\CartService;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class AppController extends AbstractController
 {
@@ -76,5 +80,39 @@ class AppController extends AbstractController
         return $this->render('app/home.admin.html.twig', [
             'restaurants' => $restaurants,
         ]);
+    }
+
+    /**
+     * @Route("/user/panier", name="panier")
+     */
+    public function index_panier(CartService $cartService, ProductRepository $productRepository): Response
+    {
+        return $this->render('app/index.panier.html.twig', [
+            "items" => $cartService->getFullCart(),
+            "total" => $cartService->getTotal()
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}/panier/new/{restaurants}", name="panier_add")
+     * * @ParamConverter("restaurant", options={"id" = "restaurants"})
+     */
+    public function add($id, CartService $cartService, Product $product, Restaurant $restaurant)
+    {
+        {
+            $cartService->add($id);
+    
+            return $this->redirectToRoute("product_show", ['id' => $restaurant->getId()]);
+        }
+    }
+
+    /**
+     * @Route("/user/panier/supprimer/{id}", name="panier_remove")
+     */
+    public function remove($id, CartService $cartService)
+    {
+        $cartService->remove($id);
+
+        return $this->redirectToRoute('panier');
     }
 }

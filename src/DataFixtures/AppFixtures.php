@@ -45,8 +45,8 @@ class AppFixtures extends Fixture
 
     private function loadRestaurants(ObjectManager $manager): void
     {
+        $i = 1;
         foreach ($this->getRestaurantData() as [$title, $address, $city, $phone, $picture]) {
-            $i = 0;
             $restaurant = new Restaurant();
             $restaurant->setName($title);
             $restaurant->setAddress($address);
@@ -91,10 +91,10 @@ class AppFixtures extends Fixture
             ['Dimitri', 'Serrano', 'dimitri@tweatter.fr', 'tweatter', '07 83 45 67 67', '20 Rue de Paris', 'Paris', ['ROLE_ADMIN']],
             ['Jean', 'Dupont', 'jean@tweatter.fr', 'tweatter', '07 83 45 67 67', '20 Rue de Paris', 'Paris', ['ROLE_RESTAURATEUR']],
             ['Kevin', 'Vallin', 'kevin@tweatter.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Lyon', ['ROLE_RESTAURATEUR']],
-            ['Aurelien', 'Robier', 'Aurelien@livretoo.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Bordeaux', ['ROLE_RESTAURATEUR']],
-            ['Ebbane', 'Diet', 'Ebbane@livretoo.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Bordeaux', ['ROLE_RESTAURATEUR']],
-            ['Maxence', 'Crosse', 'Maxence@livretoo.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Toulouse', ['ROLE_RESTAURATEUR']],
-            ['Mareva', 'Gauss', 'Mareva@livretoo.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Lille', ['ROLE_RESTAURATEUR']],
+            ['Aurelien', 'Robier', 'Aurelien@tweatter.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Bordeaux', ['ROLE_RESTAURATEUR']],
+            ['Ebbane', 'Diet', 'Ebbane@tweatter.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Bordeaux', ['ROLE_RESTAURATEUR']],
+            ['Maxence', 'Crosse', 'Maxence@tweatter.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Toulouse', ['ROLE_RESTAURATEUR']],
+            ['Mareva', 'Gauss', 'Mareva@tweatter.fr', 'tweatter', '07 83 45 67 67', '88 Parc de la Paix', 'Lille', ['ROLE_RESTAURATEUR']],
         ];
     }
 
