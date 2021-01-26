@@ -2,10 +2,11 @@
 
 {% block body %}
 
-<div class="container mt-4">
-    <h1>Nouveau produit</h1>
+<div class="container center">
+    <h1 class="h3 mb-3 mt-5 font-weight-normal text-center">Nouveau produits</h1>
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+    <div class='mb-3'>{{ form_row(form.name) }}</div>
+        {{ form_rest(form) }}
     <button class="btn btn-primary">Créer</button>
     {{ form_end(form) }}
 </div>

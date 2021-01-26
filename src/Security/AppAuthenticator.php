@@ -100,7 +100,11 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse('/restaurant/home');
         }
 
-        return new RedirectResponse('/');
+        if(in_array("ROLE_ADMIN", $user->getRoles())) {
+            return new RedirectResponse('/admin');
+        }
+
+        return new RedirectResponse('/user/home');
     }
 
     protected function getLoginUrl()

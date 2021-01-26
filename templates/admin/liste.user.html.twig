@@ -3,20 +3,18 @@
 {% block body %}
 
 <div class="jumbotron text-center">
-  <h1>Tous les resto</h1>
+  <h1>Tous les utilisateurs</h1>
 </div>
 
 
 <div class="container text-center">
   <h1>Restaurants a la une</h1>
   <div class="row justify-content-start mr-5 ml-5">
-      {% for restaurant in restaurants %}
+      {% for user in users %}
           <div class="col-sm-4">
               <div class="card border-primary mb-3" style="max-width: 40rem;">
                   <div class="card-body">
-                      <h4 class="card-title"><a href="{{ path('product_show', {'id': restaurant.id}) }}" class="btn btn-primary">{{ restaurant.name }}</a></h4>
-                      <img class="fit-picture" src={{ restaurant.picture }} style="max-width: 100%;">
-                      <p class="card-text"> {{ restaurant.city }} </p>
+                      <p class="card-text"> {{ user.email }} </p>
                   </div>
               </div>
           </div>

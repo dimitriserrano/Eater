@@ -2,19 +2,25 @@
 
 {% block body %}
 
-<section>
+<div class="jumbotron text-center">
     <h1>{{ restaurants.name }}</h1>
     <p>{{ restaurants.address}}, {{ restaurants.city}}</p>
-    {% for product in products %}
-        <div class="card border-secondary mb-3" style="max-width: 20rem;">
-            <div class="card-body">
-                <h4 class="card-title">{{ product.name }}</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+</div>
+    <div class="row justify-content-start mr-5 ml-5">
+        {% for product in products %}
+            <div class="col-sm-4">
+                <div class="card border-secondary mb-3" style="max-width: 40rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ product.name }}</h4>
+                        <img class="fit-picture" src={{ product.picture }} style="max-width: 100%;">
+                        <p class="card-text">{{ product.description }}</p>
+                        <h5 class="text-center text-primary d-inline-flex mr-5" style="font-size: 2rem">{{ product.price }}€</h5>
+                        <a href="#" class="card-link">Ajouter au panier</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    {% endfor %}
-</section>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

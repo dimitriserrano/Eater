@@ -54,6 +54,11 @@ class Restaurant
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -186,6 +191,18 @@ class Restaurant
     public function setUsers(?User $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

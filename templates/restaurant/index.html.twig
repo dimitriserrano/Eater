@@ -2,21 +2,33 @@
 
 {% block body %}
 
-<section>
+<div class="jumbotron text-center">
     <h1>{{ app.user.restaurants.name }}</h1>
+    <img class="fit-picture" src={{ app.user.restaurants.picture }} style="max-width: 50%;">
     <p>{{ app.user.restaurants.address}}, {{ app.user.restaurants.city}}</p>
+    <p>{{ app.user.restaurants.phone}}</p>
     <a href="{{ path('restaurant_edit', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Editer</a>
+</div>
+
+<div class="container">
+  <div class="row flex">
     {% for product in app.user.restaurants.products %}
-        <div class="card border-secondary mb-3" style="max-width: 20rem;">
-            <div class="card-body">
-                <h4 class="card-title">{{ product.name }}</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{{ path('product_edit', {'id': app.user.restaurants.id, 'products': product.id}) }}" class="card-link">Editer</a>
-                <a href="{{ path('product_delete', {'id': app.user.restaurants.id, 'products': product.id}) }}" class="card-link">Supprimer</a>
-            </div>
+      <div class="col-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title ">{{ product.name }}</h5>
+            <img class="fit-picture" src={{ product.picture }} style="max-width: 100%;">
+            <p class="card-text">{{ product.description }}</p>
+            <a href="{{ path('product_edit', {'id': app.user.restaurants.id, 'products': product.id}) }}" class="btn btn-primary">Editer</a>
+            <a href="{{ path('product_delete', {'id': app.user.restaurants.id, 'products': product.id}) }}" class="btn btn-danger">Supprimer</a>
+          </div>
         </div>
-    {% endfor %}
-    <a href="{{ path('product_new', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Ajouter un nouveau produit</a>
-</section>
+      </div>
+    {% endfor %}   
+  </div>
+  <a href="{{ path('product_new', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Ajouter un nouveau produit</a>
+</div>
+
+
 
 {% endblock %}

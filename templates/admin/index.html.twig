@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron text-center">
+  <h1>Page admin</h1>
+</div>
+
+<a href="{{ path('list_user') }}" class="btn btn-primary">Liste utilisateur</a>
+<a href="{{ path('list_restaurant') }}" class="btn btn-primary">Liste restaurant</a>
+
+{% endblock %}

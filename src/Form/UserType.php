@@ -2,28 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Restaurant;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RestaurantType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('email')
+            ->add('password')
+            ->add('firstname')
+            ->add('lastname')
             ->add('phone')
-            ->add('city')
             ->add('address')
-            ->add('picture')
+            ->add('city')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Restaurant::class,
+            'data_class' => User::class,
         ]);
     }
 }
