@@ -21,16 +21,6 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      */
     private $users;
@@ -45,6 +35,16 @@ class Order
      */
     private $products;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=OrderProduct::class, inversedBy="orders")
+     */
+    private $orderProduct;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $Cost;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -53,30 +53,6 @@ class Order
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
     }
 
     public function getUsers(): ?User
@@ -126,6 +102,30 @@ class Order
         if ($this->products->removeElement($product)) {
             $product->removeOrder($this);
         }
+
+        return $this;
+    }
+
+    public function getOrderProduct(): ?OrderProduct
+    {
+        return $this->orderProduct;
+    }
+
+    public function setOrderProduct(?OrderProduct $orderProduct): self
+    {
+        $this->orderProduct = $orderProduct;
+
+        return $this;
+    }
+
+    public function getCost(): ?float
+    {
+        return $this->Cost;
+    }
+
+    public function setCost(float $Cost): self
+    {
+        $this->Cost = $Cost;
 
         return $this;
     }

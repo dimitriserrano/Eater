@@ -49,6 +49,11 @@ class Product
      */
     private $picture;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=OrderProduct::class, inversedBy="products")
+     */
+    private $orderProduct;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -139,6 +144,18 @@ class Product
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getOrderProduct(): ?OrderProduct
+    {
+        return $this->orderProduct;
+    }
+
+    public function setOrderProduct(?OrderProduct $orderProduct): self
+    {
+        $this->orderProduct = $orderProduct;
 
         return $this;
     }
