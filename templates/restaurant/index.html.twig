@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.log.html.twig' %}
 
 {% block body %}
 
 <div class="jumbotron text-center">
     <h1>{{ app.user.restaurants.name }}</h1>
-    <img class="fit-picture" src={{ app.user.restaurants.picture }} style="max-width: 50%;">
+    <img class="fit-picture" src={{ app.user.restaurants.picture }} style="max-width: 25%;">
     <p>{{ app.user.restaurants.address}}, {{ app.user.restaurants.city}}</p>
     <p>{{ app.user.restaurants.phone}}</p>
     <a href="{{ path('restaurant_edit', {'id': app.user.restaurants.id}) }}" class="btn btn-primary">Editer</a>

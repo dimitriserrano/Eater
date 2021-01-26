@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Restaurant;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\ProductType;
 use App\Form\RestaurantType;
 use App\Repository\ProductRepository;
@@ -21,12 +22,13 @@ class RestaurantController extends AbstractController
     /**
      * @Route("/restaurant/{id}", name="restaurant")
      */
-    public function index(Restaurant $restaurant, ProductRepository $productRepository): Response
+    public function index(Restaurant $restaurant, ProductRepository $productRepository, User $user): Response
     {
         $products = $productRepository->getByID($restaurant->getId());
         return $this->render('restaurant/index.html.twig', [
             'products' => $products,
             'restaurants' => $restaurant,
+            'user' => $user
         ]);
     }
 
